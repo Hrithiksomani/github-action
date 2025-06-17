@@ -1,1 +1,12 @@
-
+name: Master
+on:
+  schedule:
+    - cron: '* * * * *'
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      - name: Run shell script
+        run: ./github-action-script.sh
