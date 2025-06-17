@@ -8,9 +8,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: File run
-        run: ./github-action-script.sh
-
+      - name: Permission File run
+        run: chmod 777 github-action-script.sh 
+        
       - name: Run a multi-line script
         run: |
           echo Add other actions to build,
