@@ -1,10 +1,16 @@
-name: Test CI
-on:
-  workflow_dispatch:
+name: Experiment
+on: 
   schedule:
-    - cron: "*/6 * * * *"
+  - cron: '*/5 * * * *'
+
 jobs:
-  test:
+  job1:
+    name: Debug
     runs-on: ubuntu-latest
+
     steps:
-      - run: echo "Hello, world!"
+    - name: Git checkout
+      uses: actions/checkout@v2
+      with: { ref: main }
+    - name: List files
+      run: ls
