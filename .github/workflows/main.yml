@@ -1,5 +1,8 @@
-name: CI
+name: main
 on:
+  push:
+    branches:
+      - main
   schedule:
     - cron: "* * * * *"
   workflow_dispatch:  
@@ -10,8 +13,3 @@ jobs:
       - uses: actions/checkout@v4
       - name: Permission File run
         run: ./github-action-script.sh 
-        
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
