@@ -1,6 +1,7 @@
 #!/bin/bash
 
-while true; do
+c=1
+while [ $c -le 10 ]; do
   curl --location 'https://cstd.bangkok.go.th/reservation/api/reservation/booking?lang=en&IS_GUEST=true' \
     --header 'Content-Type: application/json' \
     --header 'Accept: application/json' \
@@ -15,5 +16,6 @@ while true; do
       "BOOKER_ID":"4f5f89af-1359-4ca5-aeda-67ec95189e99"
     }'
   echo "Request sent at $(date)"
+  ((c++))
   sleep 5
 done
