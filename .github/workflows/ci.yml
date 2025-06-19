@@ -1,7 +1,5 @@
 name: Experiment
 on: 
-  schedule:
-  - cron: '56,57,58,59,0 22,23 * * *'
   workflow_dispatch:
 
 jobs:
@@ -13,5 +11,5 @@ jobs:
     - name: Git checkout
       uses: actions/checkout@v2
       with: { ref: main }
-    - name: List files
+    - name: call api
       run: ./github-action-script.sh
