@@ -20,7 +20,7 @@ else
 fi
 
 c=1
-while [ $c -le 10 ]; do
+while [ $c -le 20 ]; do
   curl --location 'https://cstd.bangkok.go.th/reservation/api/reservation/booking?lang=en&IS_GUEST=true' \
     --header 'Content-Type: application/json' \
     --header 'Accept: application/json' \
@@ -36,5 +36,5 @@ while [ $c -le 10 ]; do
     }'
   echo "Request sent at $(date)"
   ((c++))
-  sleep 5
+  sleep 3
 done
