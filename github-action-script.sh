@@ -14,7 +14,7 @@ sleep_sec=$((target_sec - now_sec))
 
 if [ $sleep_sec -gt 0 ]; then
   echo "Sleeping for $sleep_sec seconds until 22:59..."
-  sleep $sleep_sec
+  #sleep $sleep_sec
 else
   echo "It's already past 22:59, sending requests now."
 fi
