@@ -14,7 +14,7 @@ sleep_sec=$((target_sec - now_sec))
 
 if [ $sleep_sec -gt 0 ]; then
   echo "Sleeping for $sleep_sec seconds until 22:59..."
-  #sleep $sleep_sec
+  sleep $sleep_sec
 else
   echo "It's already past 22:59, sending requests now."
 fi
@@ -42,7 +42,7 @@ echo "Slot ID for 19:00:00 on $BOOKING_DATE is: $SLOT_ID"
 # 2. Book the slot using the extracted SLOT_ID
   
 c=1
-while [ $c -le 20 ]; do 
+while [ $c -le 15 ]; do 
   curl --location 'https://cstd.bangkok.go.th/reservation/api/reservation/booking?lang=en&IS_GUEST=true' \
     --header 'Content-Type: application/json' \
     --header 'Accept: application/json' \
@@ -58,5 +58,5 @@ while [ $c -le 20 ]; do
     }"
   echo "Request sent at $(date)"Add commentMore actions
   ((c++))
-  sleep 3
+  sleep 5
 done
