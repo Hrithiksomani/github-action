@@ -26,14 +26,14 @@ BOOKING_DATE=$(date -d "tomorrow" +%Y-%m-%d)
 BOOKER_ID="17001de1-fac3-487c-b009-8c4883e15394"
 AUTH_TOKEN="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjYXJkX2lkIjoiMTcwMDFkZTEtZmFjMy00ODdjLWIwMDktOGM0ODgzZTE1Mzk0IiwiaWF0IjoxNzUwMDcyNTQyfQ.tUWV-jymsQn0S6arVgHPVr4v7buXwtBuy_K_bYZkgC8"
 
-$(curl --silent --location "https://cstd.bangkok.go.th/reservation/api/reservation/item/372339b3-192b-4ad7-a2aa-934618a96e1a/slot?BOOKING_DATE=${BOOKING_DATE}&IS_GUEST=true" \
+curl --silent --location "https://cstd.bangkok.go.th/reservation/api/reservation/item/372339b3-192b-4ad7-a2aa-934618a96e1a/slot?BOOKING_DATE=${BOOKING_DATE}&IS_GUEST=true" \
   --header "Accept: application/json" \
   --header "User-Agent: mfessAnycard/262001 CFNetwork/1402.0.8 Darwin/22.2.0" \
   --header "Accept-Language: en-US,en;q=0.9" \
   --header "Authorization: Bearer ${AUTH_TOKEN}" \
-  --header "Accept-Encoding: gzip, deflate, br" | \
-  jq -r '.[] | select(.START_TIME=="19:00:00") | .ID'
-)
+  --header "Accept-Encoding: gzip, deflate, br" 
+  #jq -r '.[] | select(.START_TIME=="19:00:00") | .ID'
+
 # 1. Get the slot ID for 19:00:00
 SLOT_ID=$(curl --silent --location "https://cstd.bangkok.go.th/reservation/api/reservation/item/372339b3-192b-4ad7-a2aa-934618a96e1a/slot?BOOKING_DATE=${BOOKING_DATE}&IS_GUEST=true" \
   --header "Accept: application/json" \
