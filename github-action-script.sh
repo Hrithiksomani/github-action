@@ -20,8 +20,8 @@ else
 fi
 
 # Get tomorrow's date in YYYY-MM-DD format
-#BOOKING_DATE=$(date -d "tomorrow" +%Y-%m-%d)
-BOOKING_DATE="2025-06-29"
+BOOKING_DATE=$(date -d "tomorrow" +%Y-%m-%d)
+
 # Set your booker ID and authorization token
 BOOKER_ID="17001de1-fac3-487c-b009-8c4883e15394"
 AUTH_TOKEN="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjYXJkX2lkIjoiMTcwMDFkZTEtZmFjMy00ODdjLWIwMDktOGM0ODgzZTE1Mzk0IiwiaWF0IjoxNzUwMDcyNTQyfQ.tUWV-jymsQn0S6arVgHPVr4v7buXwtBuy_K_bYZkgC8"
