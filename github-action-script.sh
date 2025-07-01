@@ -1,5 +1,5 @@
 #!/bin/bash
-
+ chmod 777 ./slot20.sh
 
 # Calculate seconds since midnight
 now_h=$(date +%H)
