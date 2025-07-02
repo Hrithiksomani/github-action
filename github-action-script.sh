@@ -41,13 +41,13 @@ echo "Slot ID for 19:00:00 on $BOOKING_DATE is: $SLOT_ID"
 
 # 2. Book the slot using the extracted SLOT_ID
   
-
+c=0
 loop_now_h=$(date +%H)
 loop_now_m=$(date +%M)
 loop_now_s=$(date +%S)
 loop_now_sec=$((10#$loop_now_h * 3600 + 10#$loop_now_m * 60 + 10#$loop_now_s))
 
-loop_target_sec=$((23 * 3600 + 0 * 60 + 10))
+loop_target_sec=$((23 * 3600 + 0 * 60 + 8))
 
 while [ $loop_now_sec -lt $loop_target_sec ]; do 
   echo "Request sent at $(date)"
@@ -69,6 +69,8 @@ while [ $loop_now_sec -lt $loop_target_sec ]; do
   loop_now_m=$(date +%M)
   loop_now_s=$(date +%S)
   loop_now_sec=$((10#$loop_now_h * 3600 + 10#$loop_now_m * 60 + 10#$loop_now_s))
+  echo "Count of time loop run $c"
+  ((c++))
 done
 
 wait
