@@ -1,23 +1,6 @@
 #!/bin/bash
 
 
-# Calculate seconds since midnight
-now_h=$(date +%H)
-now_m=$(date +%M)
-now_s=$(date +%S)
-now_sec=$((10#$now_h * 3600 + 10#$now_m * 60 + 10#$now_s))
-
-# Target time: 22:59:00 in seconds since midnight
-target_sec=$((22 * 3600 + 59 * 60 + 59))
-
-sleep_sec=$((target_sec - now_sec))
-
-if [ $sleep_sec -gt 0 ]; then
-  echo "Sleeping for $sleep_sec seconds until 22:59..."
-  sleep $sleep_sec
-else
-  echo "It's already past 22:59, sending requests now."
-fi
 
 # Get tomorrow's date in YYYY-MM-DD format
 BOOKING_DATE=$(date -d "tomorrow + 1 day" +%Y-%m-%d)
@@ -38,6 +21,26 @@ SLOT_ID=$(curl --location "https://cstd.bangkok.go.th/reservation/api/reservatio
 )
 
 echo "Slot ID for 19:00:00 on $BOOKING_DATE is: $SLOT_ID"
+
+# Calculate seconds since midnight
+now_h=$(date +%H)
+now_m=$(date +%M)
+now_s=$(date +%S)
+now_sec=$((10#$now_h * 3600 + 10#$now_m * 60 + 10#$now_s))
+
+# Target time: 22:59:00 in seconds since midnight
+target_sec=$((22 * 3600 + 59 * 60 + 58))
+
+sleep_sec=$((target_sec - now_sec))
+
+
+if [ $sleep_sec -gt 0 ]; then
+  echo "Sleeping for $sleep_sec seconds until 22:59..."
+  sleep $sleep_sec
+else
+  echo "It's already past 22:59, sending requests now."
+fi
+
 
 # 2. Book the slot using the extracted SLOT_ID
   
