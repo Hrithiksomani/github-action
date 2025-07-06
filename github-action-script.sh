@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sleep 0.1
+
 
 # Get tomorrow's date in YYYY-MM-DD format
 BOOKING_DATE=$(date -d "tomorrow + 1 day" +%Y-%m-%d)
@@ -35,10 +35,10 @@ sleep_sec=$((target_sec - now_sec))
 
 
 if [ $sleep_sec -gt 0 ]; then
-  echo "Sleeping for $sleep_sec seconds until 22:59..."
+  echo "Sleeping for $sleep_sec seconds until 22:59:59..."
   sleep $sleep_sec
 else
-  echo "It's already past 22:59, sending requests now."
+  echo "It's already past 22:59:59, sending requests now."
 fi
 
 
@@ -73,7 +73,10 @@ while [ $loop_now_sec -lt $loop_target_sec ]; do
   loop_now_s=$(date +%S)
   loop_now_sec=$((10#$loop_now_h * 3600 + 10#$loop_now_m * 60 + 10#$loop_now_s))
   echo "Count of time loop run $c"
+  sleep 0.2
   ((c++))
 done
 
 wait
+
+echo "Max value of loop count $c"
