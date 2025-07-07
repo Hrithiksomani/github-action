@@ -23,5 +23,5 @@ jobs:
       uses: actions/checkout@v2
       with: { ref: main }
     - name: call api
-      run: ./slot20.sh
+      run: chmod +x ./slot20.sh
       
