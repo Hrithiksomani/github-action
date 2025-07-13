@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-
+exit 0
 # Get tomorrow's date in YYYY-MM-DD format
 BOOKING_DATE=$(date -d "tomorrow + 1 day" +%Y-%m-%d)
 
