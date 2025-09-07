@@ -7,7 +7,7 @@ BOOKING_DATE=$(date -d "tomorrow + 1 day" +%Y-%m-%d)
 
 # Set your booker ID and authorization token
 BOOKER_ID="17001de1-fac3-487c-b009-8c4883e15394"
-AUTH_TOKEN="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjYXJkX2lkIjoiMTcwMDFkZTEtZmFjMy00ODdjLWIwMDktOGM0ODgzZTE1Mzk0IiwiaWF0IjoxNzUwMDcyNTQyfQ.tUWV-jymsQn0S6arVgHPVr4v7buXwtBuy_K_bYZkgC8"
+AUTH_TOKEN="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3NTcyNTI0OTF9.rMo3rvjvAHdP1aR1MInF1lxNqTBXpvundKOM7l13hMg"
 
 
 # 1. Get the slot ID for 19:00:00
@@ -53,7 +53,7 @@ sleep_sec=$((target_sec - now_sec))
 
 if [ $sleep_sec -gt 0 ]; then
   echo "Sleeping for $sleep_sec seconds until 22:59:59..."
-  sleep $sleep_sec
+  #sleep $sleep_sec
 else
   echo "It's already past 22:59:59, sending requests now."
 fi
@@ -85,6 +85,7 @@ while [ $loop_now_sec -lt $loop_target_sec ]; do
       \"BOOKER_ID\": \"${BOOKER_ID}\"
     }" &
   echo "Response received at $(date)"
+  exit 0
   echo "Request sent at $(date)"
   curl --location 'https://cstd.bangkok.go.th/reservation/api/reservation/booking?lang=en&IS_GUEST=true' \
     --header 'Content-Type: application/json' \
