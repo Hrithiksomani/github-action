@@ -24,7 +24,7 @@ echo "Slot ID for 19:00:00 on $BOOKING_DATE is: $SLOT_ID"
 
 
 BOOKER_ID2="781eeae3-bdf0-49e2-906f-1ee4d42a79ad"
-AUTH_TOKEN2="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3NTAxNzU1NTR9.3KNI6ThkP2O-KPnvOkSEqMoUlBD4nL6YqVxa49xQPcs"
+AUTH_TOKEN2="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3NTcyNTMyNTJ9.wQW2vshXuOfQeSW0Xhoc-iLGkD7z7KIQNmOZC1ItZe4"
 
 
 # 1. Get the slot ID for 20:00:00
@@ -85,7 +85,7 @@ while [ $loop_now_sec -lt $loop_target_sec ]; do
       \"BOOKER_ID\": \"${BOOKER_ID}\"
     }" &
   echo "Response received at $(date)"
-  exit 0
+  echo "Second API call to make book"
   echo "Request sent at $(date)"
   curl --location 'https://cstd.bangkok.go.th/reservation/api/reservation/booking?lang=en&IS_GUEST=true' \
     --header 'Content-Type: application/json' \
