@@ -45,17 +45,17 @@ now_m=$(date +%M)
 now_s=$(date +%S)
 now_sec=$((10#$now_h * 3600 + 10#$now_m * 60 + 10#$now_s))
 
-# Target time: 22:59:00 in seconds since midnight
-target_sec=$((22 * 3600 + 59 * 60 + 59))
+# Target time: 4:59:00 in seconds since midnight
+target_sec=$((4 * 3600 + 59 * 60 + 59))
 
 sleep_sec=$((target_sec - now_sec))
 
 
 if [ $sleep_sec -gt 0 ]; then
-  echo "Sleeping for $sleep_sec seconds until 22:59:59..."
+  echo "Sleeping for $sleep_sec seconds until 4:59:59..."
   sleep $sleep_sec
 else
-  echo "It's already past 22:59:59, sending requests now."
+  echo "It's already past 4:59:59, sending requests now."
 fi
 
 
@@ -67,7 +67,7 @@ loop_now_m=$(date +%M)
 loop_now_s=$(date +%S)
 loop_now_sec=$((10#$loop_now_h * 3600 + 10#$loop_now_m * 60 + 10#$loop_now_s))
 
-loop_target_sec=$((23 * 3600 + 0 * 60 + 1))
+loop_target_sec=$((12 * 3600 + 0 * 60 + 1))
 
 while [ $loop_now_sec -lt $loop_target_sec ]; do 
   echo "Request sent at $(date)"
