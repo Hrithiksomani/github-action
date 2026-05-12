@@ -68,6 +68,10 @@ loop_now_s=$(date +%S)
 loop_now_sec=$((10#$loop_now_h * 3600 + 10#$loop_now_m * 60 + 10#$loop_now_s))
 
 loop_target_sec=$((0 * 3600 + 0 * 60 + 1))
+loop_target_sec=$(( loop_target_sec + loop_now_sec )) 
+
+echo $loop_now_sec
+echo $loop_target_sec
 
 while [ $loop_now_sec -lt $loop_target_sec ]; do 
   echo "Request sent at $(date)"
