@@ -73,7 +73,7 @@ loop_target_sec=$(( loop_target_sec + loop_now_sec ))
 echo $loop_now_sec
 echo $loop_target_sec
 
-while [ $loop_now_sec -lt $loop_target_sec ]; do 
+while [ $c -lt 20 ]; do 
   echo "Request sent at $(date)"
   curl --location 'https://cstd.bangkok.go.th/reservation/api/reservation/booking?lang=en&IS_GUEST=true' \
     --header 'Content-Type: application/json' \
@@ -105,7 +105,7 @@ while [ $loop_now_sec -lt $loop_target_sec ]; do
       \"BOOKER_ID\": \"${BOOKER_ID2}\"
     }" &
   echo "Response received at $(date)"
-  loop_now_sec=$(( 0.2 + loop_now_sec )) 
+ 
   echo "Count of time loop run $c"
   sleep 0.18
   ((c++))
