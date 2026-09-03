@@ -5,9 +5,9 @@
 # Get tomorrow's date in YYYY-MM-DD format
 BOOKING_DATE=$(date -d "tomorrow + 1 day" +%Y-%m-%d)
 
-# Set your booker ID and authorization token
+# Set your booker ID and authorization token for T3295007
 BOOKER_ID="781eeae3-bdf0-49e2-906f-1ee4d42a79ad"
-AUTH_TOKEN="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3NTAxNzU1NTR9.3KNI6ThkP2O-KPnvOkSEqMoUlBD4nL6YqVxa49xQPcs"
+AUTH_TOKEN="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3ODg0MzIwNDZ9.Q2_Zo-oMb0wgCkGSZZZ-Uh0-q-_mfrqy7lcs4Lhlg0I"
 
 
 # 1. Get the slot ID for 20:00:00
