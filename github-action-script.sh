@@ -11,16 +11,19 @@ AUTH_TOKEN="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3ODg0MzE0NjZ9.evAC95
 
 
 # 1. Get the slot ID for 19:00:00
-SLOT_ID=$(curl --location "https://cstd.bangkok.go.th/reservation/api/reservation/item/06fae243-a852-4e50-9c9e-e2dcaf9d298b/slot?BOOKING_DATE=${BOOKING_DATE}&IS_GUEST=true" \
-  --header "Accept: application/json" \
-  --header "User-Agent: mfessAnycard/262001 CFNetwork/1402.0.8 Darwin/22.2.0" \
-  --header "Accept-Language: en-US,en;q=0.9" \
-  --header "Authorization: Bearer ${AUTH_TOKEN}" \
-  --header "Accept-Encoding: gzip, deflate, br" | \
-  jq -r '.[] | select(.START_TIME=="19:00:00") | .ID'
-)
+SLOT_ID="$(
+  curl --fail --silent --show-error --location \
+    --get 'https://cstd.bangkok.go.th/reservation/api/reservation/item/06fae243-a852-4e50-9c9e-e2dcaf9d298b/slot' \
+    --data-urlencode "BOOKING_DATE=${BOOKING_DATE}" \
+    --data-urlencode 'IS_GUEST=true' \
+    --header 'Accept: application/json' \
+    --header 'User-Agent: mfessAnycard/262001 CFNetwork/1402.0.8 Darwin/22.2.0' \
+    --header 'Accept-Language: en-US,en;q=0.9' \
+    --header "Authorization: Bearer ${AUTH_TOKEN}" |
+  jq -er '.[] | select(.START_TIME == "19:00:00") | .ID'
+)"
 
-echo "Slot ID for 19:00:00 on $BOOKING_DATE is: $SLOT_ID"
+echo "Slot ID for 19:00:00 on ${BOOKING_DATE} is: ${SLOT_ID}"
 
 
 BOOKER_ID2="781eeae3-bdf0-49e2-906f-1ee4d42a79ad"
@@ -28,16 +31,19 @@ AUTH_TOKEN2="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3NTcyNTMyNTJ9.wQW2v
 
 
 # 1. Get the slot ID for 20:00:00
-SLOT_ID2=$(curl --location "https://cstd.bangkok.go.th/reservation/api/reservation/item/06fae243-a852-4e50-9c9e-e2dcaf9d298b/slot?BOOKING_DATE=${BOOKING_DATE}&IS_GUEST=true" \
-  --header "Accept: application/json" \
-  --header "User-Agent: mfessAnycard/262001 CFNetwork/1402.0.8 Darwin/22.2.0" \
-  --header "Accept-Language: en-US,en;q=0.9" \
-  --header "Authorization: Bearer ${AUTH_TOKEN}" \
-  --header "Accept-Encoding: gzip, deflate, br" | \
-  jq -r '.[] | select(.START_TIME=="20:00:00") | .ID'
-)
+SLOT_ID2="$(
+  curl --fail --silent --show-error --location \
+    --get 'https://cstd.bangkok.go.th/reservation/api/reservation/item/06fae243-a852-4e50-9c9e-e2dcaf9d298b/slot' \
+    --data-urlencode "BOOKING_DATE=${BOOKING_DATE}" \
+    --data-urlencode 'IS_GUEST=true' \
+    --header 'Accept: application/json' \
+    --header 'User-Agent: mfessAnycard/262001 CFNetwork/1402.0.8 Darwin/22.2.0' \
+    --header 'Accept-Language: en-US,en;q=0.9' \
+    --header "Authorization: Bearer ${AUTH_TOKEN}" |
+  jq -er '.[] | select(.START_TIME == "20:00:00") | .ID'
+)"
 
-echo "Slot ID for 20:00:00 on $BOOKING_DATE is: $SLOT_ID2"
+echo "Slot ID for 19:00:00 on ${BOOKING_DATE} is: ${SLOT_ID2}"
 
 # Calculate seconds since midnight
 now_h=$(date +%H)
@@ -75,35 +81,43 @@ echo $loop_target_sec
 
 while [ $c -lt 20 ]; do 
   echo "Request sent at $(date)"
-  curl --location 'https://cstd.bangkok.go.th/reservation/api/reservation/booking?lang=en&IS_GUEST=true' \
-    --header 'Content-Type: application/json' \
-    --header 'Accept: application/json' \
-    --header 'User-Agent: mfessAnycard/262001 CFNetwork/1402.0.8 Darwin/22.2.0' \
-    --header 'Accept-Language: en-US,en;q=0.9' \
-    --header "Authorization: Bearer ${AUTH_TOKEN}" \
-    --header 'Accept-Encoding: gzip, deflate, br' \
-    --data "{
-      \"BOOKING_DATE\": \"${BOOKING_DATE}\",
-      \"SLOT_ID\": \"${SLOT_ID}\",
-      \"BOOKING_TITLE\": \"Pickleball Pickleball 2\",
-      \"BOOKER_ID\": \"${BOOKER_ID}\"
-    }" &
+  curl --fail --silent --show-error --location \
+  'https://cstd.bangkok.go.th/reservation/api/reservation/booking?lang=en&IS_GUEST=true' \
+  --header 'Content-Type: application/json' \
+  --header 'Accept: application/json' \
+  --header 'User-Agent: mfessAnycard/262001 CFNetwork/1402.0.8 Darwin/22.2.0' \
+  --header 'Accept-Language: en-US,en;q=0.9' \
+  --header "Authorization: Bearer ${AUTH_TOKEN}" \
+  --data-raw "$(jq -nc \
+    --arg booking_date "$BOOKING_DATE" \
+    --arg slot_id "$SLOT_ID" \
+    --arg booker_id "$BOOKER_ID" \
+    '{
+      BOOKING_DATE: $booking_date,
+      SLOT_ID: $slot_id,
+      BOOKING_TITLE: "Pickleball Pickleball 2",
+      BOOKER_ID: $booker_id
+    }')" &
   echo "Response received at $(date)"
   echo "Second API call to make book"
   echo "Request sent at $(date)"
-  curl --location 'https://cstd.bangkok.go.th/reservation/api/reservation/booking?lang=en&IS_GUEST=true' \
-    --header 'Content-Type: application/json' \
-    --header 'Accept: application/json' \
-    --header 'User-Agent: mfessAnycard/262001 CFNetwork/1402.0.8 Darwin/22.2.0' \
-    --header 'Accept-Language: en-US,en;q=0.9' \
-    --header "Authorization: Bearer ${AUTH_TOKEN2}" \
-    --header 'Accept-Encoding: gzip, deflate, br' \
-    --data "{
-      \"BOOKING_DATE\": \"${BOOKING_DATE}\",
-      \"SLOT_ID\": \"${SLOT_ID2}\",
-      \"BOOKING_TITLE\": \"Pickleball Pickleball 2\",
-      \"BOOKER_ID\": \"${BOOKER_ID2}\"
-    }" &
+  curl --fail --silent --show-error --location \
+  'https://cstd.bangkok.go.th/reservation/api/reservation/booking?lang=en&IS_GUEST=true' \
+  --header 'Content-Type: application/json' \
+  --header 'Accept: application/json' \
+  --header 'User-Agent: mfessAnycard/262001 CFNetwork/1402.0.8 Darwin/22.2.0' \
+  --header 'Accept-Language: en-US,en;q=0.9' \
+  --header "Authorization: Bearer ${AUTH_TOKEN2}" \
+  --data-raw "$(jq -nc \
+    --arg booking_date "$BOOKING_DATE" \
+    --arg slot_id "$SLOT_ID2" \
+    --arg booker_id "$BOOKER_ID2" \
+    '{
+      BOOKING_DATE: $booking_date,
+      SLOT_ID: $slot_id,
+      BOOKING_TITLE: "Pickleball Pickleball 2",
+      BOOKER_ID: $booker_id
+    }')" &
   echo "Response received at $(date)"
  
   echo "Count of time loop run $c"
